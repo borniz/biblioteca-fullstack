@@ -1,0 +1,784 @@
+# 📚 Sistema de Gestión de Biblioteca
+
+Sistema web para la administración de una biblioteca, desarrollado con **Spring Boot**, **React + TypeScript**, **PostgreSQL** y **Docker**.
+
+El proyecto permite gestionar usuarios, libros, ejemplares físicos y préstamos, incluyendo el registro y devolución de libros.
+
+---
+
+## 🚀 Tecnologías utilizadas
+
+### Backend
+
+* Java
+* Spring Boot
+* Spring Web
+* Spring Data JPA
+* Hibernate
+* Jakarta Validation
+* PostgreSQL
+* Maven
+* Docker
+
+### Frontend
+
+* React
+* TypeScript
+* Vite
+* React Router DOM
+* Axios
+* CSS
+
+### Infraestructura
+
+* Docker
+* Docker Compose
+* PostgreSQL
+
+---
+
+## 🏗️ Arquitectura
+
+El proyecto está dividido en dos aplicaciones principales:
+
+```text
+biblioteca/
+│
+├── backend/
+│   ├── src/
+│   │   └── main/
+│   │       ├── java/
+│   │       │   └── com/biblioteca/backend/
+│   │       │       ├── controller/
+│   │       │       ├── entity/
+│   │       │       ├── repository/
+│   │       │       ├── service/
+│   │       │       ├── exception/
+│   │       │       └── BackendApplication.java
+│   │       │
+│   │       └── resources/
+│   │           └── application.properties
+│   │
+│   ├── Dockerfile
+│   └── pom.xml
+│
+├── frontend/
+│   ├── src/
+│   │   ├── assets/
+│   │   ├── components/
+│   │   ├── pages/
+│   │   ├── services/
+│   │   ├── types/
+│   │   ├── App.tsx
+│   │   └── main.tsx
+│   │
+│   ├── Dockerfile
+│   ├── package.json
+│   └── vite.config.ts
+│
+├── docker-compose.yml
+└── README.md
+```
+
+---
+
+# 📌 Funcionalidades
+
+## 👥 Usuarios
+
+El sistema permite:
+
+* Listar usuarios.
+* Buscar usuarios.
+* Registrar usuarios.
+* Consultar usuarios por ID.
+* Modificar usuarios.
+* Eliminar usuarios.
+
+### Datos principales
+
+```text
+Usuario
+├── id
+├── nombre
+├── apellido
+├── email
+└── fechaNacimiento
+```
+
+---
+
+## 📚 Libros
+
+El módulo de libros permite:
+
+* Listar libros.
+* Consultar un libro por ID.
+* Registrar libros.
+* Modificar libros.
+* Eliminar libros.
+* Asociar ejemplares físicos a un libro.
+
+### Datos principales
+
+```text
+Libro
+├── id
+├── titulo
+├── isbn
+├── edicion
+├── fechaPublicacion
+├── autor
+└── ejemplares
+```
+
+El ISBN se maneja como un valor único en la base de datos.
+
+---
+
+## 🏷️ Ejemplares
+
+Los ejemplares representan las copias físicas de los libros.
+
+El sistema permite:
+
+* Registrar ejemplares.
+* Consultar ejemplares.
+* Consultar ejemplares por ID.
+* Eliminar ejemplares.
+* Consultar ejemplares disponibles mediante ISBN.
+
+### Datos principales
+
+```text
+Ejemplar
+├── id
+├── codigoEjemplar
+└── libro
+```
+
+Cada ejemplar pertenece a un libro.
+
+La relación utilizada en el backend es:
+
+```text
+Libro 1 ─────────── N Ejemplares
+```
+
+---
+
+## 🔄 Préstamos
+
+El módulo de préstamos permite:
+
+* Registrar préstamos.
+* Consultar préstamos por usuario.
+* Consultar préstamos relacionados con un libro.
+* Registrar devoluciones.
+* Consultar el estado del préstamo.
+
+### Estados
+
+```text
+ACTIVO
+VENCIDO
+DEVUELTO
+```
+
+### Datos principales
+
+```text
+Prestamo
+├── id
+├── usuario
+├── ejemplar
+├── fechaPrestamo
+├── fechaDevolucionPrevista
+├── fechaDevolucionReal
+└── estadoPrestamo
+```
+
+---
+
+# 🔗 API REST
+
+El backend utiliza el siguiente prefijo:
+
+```text
+http://localhost:8080/libreria
+```
+
+---
+
+## Usuarios
+
+### Obtener usuarios
+
+```http
+GET /libreria/usuarios
+```
+
+### Obtener usuario por ID
+
+```http
+GET /libreria/usuarios/{id}
+```
+
+### Crear usuario
+
+```http
+POST /libreria/usuarios
+```
+
+### Actualizar usuario
+
+```http
+PUT /libreria/usuarios/{id}
+```
+
+### Eliminar usuario
+
+```http
+DELETE /libreria/usuarios/{id}
+```
+
+---
+
+# Libros
+
+### Obtener libros
+
+```http
+GET /libreria/libros
+```
+
+### Obtener libro por ID
+
+```http
+GET /libreria/libros/{id}
+```
+
+### Crear libro
+
+```http
+POST /libreria/libros
+```
+
+### Actualizar libro
+
+```http
+PUT /libreria/libros/{id}
+```
+
+### Eliminar libro
+
+```http
+DELETE /libreria/libros/{id}
+```
+
+---
+
+# Ejemplares
+
+### Obtener ejemplares
+
+```http
+GET /libreria/ejemplar
+```
+
+### Obtener ejemplar por ID
+
+```http
+GET /libreria/ejemplar/{id}
+```
+
+### Crear ejemplar
+
+El endpoint recibe los parámetros:
+
+```http
+POST /libreria/ejemplar?codigoEjemplar={codigo}&libroId={id}
+```
+
+Ejemplo:
+
+```text
+POST http://localhost:8080/libreria/ejemplar?codigoEjemplar=LIB-001&libroId=1
+```
+
+### Eliminar ejemplar
+
+```http
+DELETE /libreria/ejemplar/{id}
+```
+
+### Consultar ejemplares disponibles por ISBN
+
+```http
+GET /libreria/ejemplar/disponibles/isbn/{isbn}
+```
+
+---
+
+# Préstamos
+
+### Crear préstamo
+
+```http
+POST /libreria/prestamos
+```
+
+Parámetros:
+
+```text
+usuarioId
+ejemplarId
+fechaPrestamo
+fechaDevolucionPrevista
+```
+
+Ejemplo:
+
+```text
+POST http://localhost:8080/libreria/prestamos?usuarioId=2&ejemplarId=2&fechaPrestamo=2026-07-30&fechaDevolucionPrevista=2026-08-15
+```
+
+### Obtener préstamos de un usuario
+
+```http
+GET /libreria/prestamos/usuario/{usuarioId}
+```
+
+### Obtener préstamos de un libro
+
+```http
+GET /libreria/prestamos/libro/{libroId}
+```
+
+### Registrar devolución
+
+```http
+PUT /libreria/prestamos/{id}/devolver
+```
+
+---
+
+# 🖥️ Frontend
+
+La aplicación React cuenta con las siguientes páginas:
+
+```text
+/
+├── Dashboard
+│
+├── /usuarios
+│   └── Gestión de usuarios
+│
+├── /libros
+│   └── Gestión de libros
+│
+├── /ejemplares
+│   └── Gestión de ejemplares
+│
+└── /prestamos
+    └── Gestión de préstamos
+```
+
+El menú lateral permite navegar entre los diferentes módulos.
+
+---
+
+# 📂 Estructura del Frontend
+
+```text
+frontend/src/
+│
+├── assets/
+│   ├── Navbar.css
+│   ├── Inicio.css
+│   ├── Usuarios.css
+│   ├── Libros.css
+│   ├── Ejemplar.css
+│   └── Prestamos.css
+│
+├── components/
+│   └── Navbar.tsx
+│
+├── pages/
+│   ├── Inicio.tsx
+│   ├── Usuarios.tsx
+│   ├── Libros.tsx
+│   ├── Ejemplar.tsx
+│   └── Prestamos.tsx
+│
+├── services/
+│   ├── usuarioService.ts
+│   ├── libroService.ts
+│   ├── ejemplarService.ts
+│   └── prestamoService.ts
+│
+├── types/
+│   ├── Usuario.ts
+│   ├── Libro.ts
+│   ├── Ejemplar.ts
+│   └── Prestamos.ts
+│
+├── App.tsx
+└── main.tsx
+```
+
+---
+
+# 🔌 Comunicación Frontend / Backend
+
+El frontend utiliza **Axios** para comunicarse con la API REST.
+
+Ejemplo:
+
+```typescript
+const respuesta = await axios.get<Usuario[]>(
+  "http://localhost:8080/libreria/usuarios"
+);
+
+return respuesta.data;
+```
+
+Los servicios se encuentran separados de las páginas para mantener una mejor organización del código.
+
+```text
+Página
+   ↓
+Service
+   ↓
+Axios
+   ↓
+API REST
+   ↓
+Spring Boot
+   ↓
+JPA / Hibernate
+   ↓
+PostgreSQL
+```
+
+---
+
+# 🗄️ Base de datos
+
+El proyecto utiliza **PostgreSQL**.
+
+Las principales entidades son:
+
+```text
+usuarios
+    │
+    │
+    ▼
+prestamos
+    │
+    │
+    ▼
+ejemplares
+    │
+    │
+    ▼
+libros
+```
+
+Relaciones principales:
+
+```text
+Usuario
+   │
+   └──────< Prestamo >────── Ejemplar
+                              │
+                              │
+                              ▼
+                            Libro
+```
+
+Un usuario puede tener múltiples préstamos.
+
+Un libro puede tener múltiples ejemplares.
+
+Un ejemplar puede participar en diferentes préstamos a lo largo del tiempo.
+
+---
+
+# 🐳 Docker
+
+El proyecto está preparado para ejecutarse utilizando Docker.
+
+Los principales servicios son:
+
+```text
+Frontend
+Backend
+PostgreSQL
+```
+
+Para iniciar los contenedores:
+
+```bash
+docker compose up -d
+```
+
+Para revisar los contenedores:
+
+```bash
+docker ps
+```
+
+Para detenerlos:
+
+```bash
+docker compose down
+```
+
+---
+
+# 🐘 PostgreSQL
+
+Para acceder al contenedor de PostgreSQL:
+
+```bash
+docker exec -it biblioteca-postgres psql -U biblioteca_user -d biblioteca
+```
+
+Para listar las bases de datos:
+
+```bash
+docker exec biblioteca-postgres psql -U biblioteca_user -d postgres -c "\l"
+```
+
+Ejemplo para consultar préstamos:
+
+```bash
+docker exec biblioteca-postgres psql -U biblioteca_user -d biblioteca -c "SELECT * FROM prestamos;"
+```
+
+---
+
+# ⚙️ Ejecución del proyecto
+
+## 1. Clonar el repositorio
+
+```bash
+git clone <URL_DEL_REPOSITORIO>
+```
+
+Entrar al proyecto:
+
+```bash
+cd biblioteca
+```
+
+---
+
+## 2. Levantar PostgreSQL
+
+```bash
+docker compose up -d
+```
+
+Verificar:
+
+```bash
+docker ps
+```
+
+---
+
+## 3. Ejecutar Backend
+
+Desde la carpeta `backend`:
+
+```bash
+./mvnw spring-boot:run
+```
+
+En Windows:
+
+```bash
+mvnw.cmd spring-boot:run
+```
+
+El backend quedará disponible en:
+
+```text
+http://localhost:8080
+```
+
+---
+
+## 4. Ejecutar Frontend
+
+Desde la carpeta `frontend`:
+
+```bash
+npm install
+```
+
+Después:
+
+```bash
+npm run dev
+```
+
+La aplicación estará disponible normalmente en:
+
+```text
+http://localhost:5173
+```
+
+---
+
+# 🔐 CORS
+
+El backend incluye configuración de CORS para permitir la comunicación entre el frontend React y la API Spring Boot.
+
+La configuración permite que el frontend pueda realizar solicitudes HTTP como:
+
+```text
+GET
+POST
+PUT
+DELETE
+```
+
+contra la API.
+
+---
+
+# 🧪 Pruebas de API
+
+La API puede probarse utilizando herramientas como:
+
+* Postman
+* Insomnia
+* Thunder Client
+
+Los endpoints pueden probarse independientemente del frontend.
+
+---
+
+# 📋 Validaciones
+
+El backend utiliza Jakarta Validation para validar los datos recibidos.
+
+Por ejemplo:
+
+```java
+@NotBlank
+private String titulo;
+```
+
+```java
+@NotNull
+private LocalDate fechaPublicacion;
+```
+
+También existen validaciones relacionadas con:
+
+* Libros inexistentes.
+* Usuarios inexistentes.
+* Ejemplares inexistentes.
+* Códigos de ejemplar duplicados.
+* ISBN duplicados.
+* Ejemplares no disponibles.
+* Préstamos inválidos.
+
+---
+
+# 🎨 Interfaz
+
+El frontend utiliza una interfaz oscura orientada a un panel administrativo.
+
+Características:
+
+* Dashboard principal.
+* Barra lateral de navegación.
+* Tablas responsive.
+* Formularios.
+* Modales.
+* Buscadores.
+* Estados visuales de préstamos.
+* Confirmaciones antes de eliminar.
+* Mensajes de error.
+* Diseño responsive para diferentes tamaños de pantalla.
+
+---
+
+# 📊 Estado del proyecto
+
+Actualmente se encuentran implementados:
+
+* [x] Backend Spring Boot
+* [x] PostgreSQL
+* [x] Docker
+* [x] Configuración CORS
+* [x] CRUD de usuarios
+* [x] CRUD de libros
+* [x] Gestión de ejemplares
+* [x] Consulta de ejemplares disponibles
+* [x] Registro de préstamos
+* [x] Consulta de préstamos
+* [x] Devolución de préstamos
+* [x] Estados de préstamos
+* [x] Frontend React
+* [x] TypeScript
+* [x] React Router
+* [x] Axios
+* [x] Dashboard
+* [x] Diseño responsive
+
+---
+
+# 🔮 Posibles mejoras
+
+Como futuras mejoras se podrían implementar:
+
+* [ ] Autenticación y autorización con Spring Security.
+* [ ] Login de administradores.
+* [ ] Roles y permisos.
+* [ ] Dashboard con estadísticas reales.
+* [ ] Paginación de tablas.
+* [ ] Ordenamiento de registros.
+* [ ] Filtros avanzados.
+* [ ] Sistema de multas por retraso.
+* [ ] Historial completo de préstamos.
+* [ ] Reportes.
+* [ ] Exportación a PDF/Excel.
+* [ ] Notificaciones de préstamos vencidos.
+* [ ] Tests unitarios.
+* [ ] Tests de integración.
+* [ ] CI/CD.
+* [ ] Deploy en producción.
+
+---
+
+# 👨‍💻 Autor
+
+**Yarod Bonilla**
+
+Proyecto desarrollado como aplicación Full Stack para la gestión integral de una biblioteca.
+
+### Tecnologías principales
+
+```text
+Java
+Spring Boot
+Spring Data JPA
+PostgreSQL
+Docker
+React
+TypeScript
+Axios
+Vite
+```
+
+---
+
+## 📄 Licencia
+
+Este proyecto fue desarrollado con fines educativos y de portafolio.

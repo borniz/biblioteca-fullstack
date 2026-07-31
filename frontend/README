@@ -1,0 +1,419 @@
+# Frontend - Sistema de Gestión de Biblioteca
+
+Aplicación web desarrollada con **React + TypeScript** para la gestión de usuarios, libros, ejemplares y préstamos de una biblioteca.
+
+El frontend consume una API REST desarrollada con **Spring Boot** y utiliza **Axios** para la comunicación con el backend.
+
+---
+
+## Tecnologías
+
+* React
+* TypeScript
+* Vite
+* React Router DOM
+* Axios
+* CSS
+* HTML5
+
+---
+
+## Funcionalidades
+
+### Dashboard
+
+Panel principal del sistema con acceso directo a los diferentes módulos:
+
+* Usuarios
+* Libros
+* Ejemplares
+* Préstamos
+
+También incluye información del estado de conexión de la aplicación.
+
+### Usuarios
+
+Permite realizar la gestión completa de usuarios:
+
+* Crear usuario
+* Consultar usuarios
+* Buscar usuarios
+* Consultar usuario por ID
+* Actualizar usuario
+* Eliminar usuario
+* Validación de campos obligatorios
+* Filtrado por nombre, apellido o email
+
+### Libros
+
+Permite gestionar el catálogo de libros:
+
+* Crear libro
+* Consultar libros
+* Buscar libro por ID
+* Actualizar libro
+* Eliminar libro
+* Visualizar información del libro
+* Gestionar los datos relacionados con ISBN, autor, edición y fecha de publicación
+
+### Ejemplares
+
+Permite gestionar las copias físicas de los libros:
+
+* Crear ejemplar
+* Consultar ejemplares
+* Buscar ejemplar por ID
+* Eliminar ejemplar
+* Asociar un ejemplar a un libro
+* Consultar ejemplares disponibles mediante ISBN
+
+### Préstamos
+
+Permite gestionar la circulación de ejemplares:
+
+* Registrar préstamos
+* Consultar préstamos por usuario
+* Consultar préstamos relacionados con un libro
+* Registrar devolución
+* Visualizar estado del préstamo
+* Consultar fecha de préstamo
+* Consultar fecha de devolución prevista
+* Controlar ejemplares disponibles
+
+---
+
+## Arquitectura
+
+El frontend utiliza una estructura organizada por responsabilidades:
+
+```text
+Pages
+  ↓
+Services
+  ↓
+Axios
+  ↓
+API REST
+  ↓
+Spring Boot
+  ↓
+PostgreSQL
+```
+
+### Pages
+
+Contienen las interfaces principales de la aplicación.
+
+```text
+pages/
+├── Inicio.tsx
+├── Usuarios.tsx
+├── Libros.tsx
+├── Ejemplar.tsx
+└── Prestamos.tsx
+```
+
+### Components
+
+Contiene componentes reutilizables de la interfaz.
+
+```text
+components/
+└── Navbar.tsx
+```
+
+### Services
+
+Contiene la lógica de comunicación con la API REST mediante Axios.
+
+```text
+services/
+├── usuarioService.ts
+├── libroService.ts
+├── ejemplarService.ts
+└── prestamoService.ts
+```
+
+### Types
+
+Contiene las interfaces y tipos utilizados por TypeScript.
+
+```text
+types/
+├── Usuario.ts
+├── Libro.ts
+├── Ejemplar.ts
+└── Prestamos.ts
+```
+
+### Assets
+
+Contiene los estilos CSS utilizados por cada módulo.
+
+```text
+assets/
+├── Inicio.css
+├── Navbar.css
+├── Usuarios.css
+├── Libros.css
+├── Ejemplares.css
+└── Prestamos.css
+```
+
+---
+
+## Rutas de la aplicación
+
+La navegación se implementa utilizando **React Router**.
+
+| Ruta          | Módulo                |
+| ------------- | --------------------- |
+| `/`           | Dashboard             |
+| `/usuarios`   | Gestión de usuarios   |
+| `/libros`     | Gestión de libros     |
+| `/ejemplares` | Gestión de ejemplares |
+| `/prestamos`  | Gestión de préstamos  |
+
+---
+
+## Comunicación con el Backend
+
+La aplicación utiliza Axios para consumir los endpoints de la API REST.
+
+La URL base utilizada durante el desarrollo es:
+
+```text
+http://localhost:8080
+```
+
+### Usuarios
+
+```text
+GET    /libreria/usuarios
+GET    /libreria/usuarios/{id}
+POST   /libreria/usuarios
+PUT    /libreria/usuarios/{id}
+DELETE /libreria/usuarios/{id}
+```
+
+### Libros
+
+```text
+GET    /libreria/libros
+GET    /libreria/libros/{id}
+POST   /libreria/libros
+PUT    /libreria/libros/{id}
+DELETE /libreria/libros/{id}
+```
+
+### Ejemplares
+
+```text
+GET    /libreria/ejemplar
+GET    /libreria/ejemplar/{id}
+POST   /libreria/ejemplar
+DELETE /libreria/ejemplar/{id}
+GET    /libreria/ejemplar/disponibles/isbn/{isbn}
+```
+
+### Préstamos
+
+```text
+POST /libreria/prestamos
+GET  /libreria/prestamos/usuario/{usuarioId}
+GET  /libreria/prestamos/libro/{libroId}
+PUT  /libreria/prestamos/{prestamoId}/devolver
+```
+
+---
+
+## Instalación
+
+### Requisitos
+
+Antes de ejecutar el proyecto es necesario tener instalado:
+
+* Node.js
+* npm
+* Git
+* Backend de la aplicación ejecutándose
+
+---
+
+## Instalación de dependencias
+
+Desde la carpeta `frontend`:
+
+```bash
+npm install
+```
+
+---
+
+## Configuración
+
+El frontend actualmente utiliza la API disponible en:
+
+```text
+http://localhost:8080
+```
+
+Por ejemplo:
+
+```typescript
+const API_URL = "http://localhost:8080/libreria/usuarios";
+```
+
+Es necesario que el backend esté ejecutándose y permita las solicitudes provenientes del frontend mediante configuración CORS.
+
+---
+
+## Ejecutar en desarrollo
+
+Desde la carpeta `frontend`:
+
+```bash
+npm run dev
+```
+
+Vite mostrará la dirección local donde estará disponible la aplicación.
+
+Normalmente:
+
+```text
+http://localhost:5173
+```
+
+---
+
+## Compilación para producción
+
+Para generar la versión de producción:
+
+```bash
+npm run build
+```
+
+Los archivos generados estarán disponibles en:
+
+```text
+dist/
+```
+
+---
+
+## Estructura del proyecto
+
+```text
+frontend/
+│
+├── public/
+│
+├── src/
+│   │
+│   ├── assets/
+│   │   ├── Inicio.css
+│   │   ├── Navbar.css
+│   │   ├── Usuarios.css
+│   │   ├── Libros.css
+│   │   ├── Ejemplares.css
+│   │   └── Prestamos.css
+│   │
+│   ├── components/
+│   │   └── Navbar.tsx
+│   │
+│   ├── pages/
+│   │   ├── Inicio.tsx
+│   │   ├── Usuarios.tsx
+│   │   ├── Libros.tsx
+│   │   ├── Ejemplar.tsx
+│   │   └── Prestamos.tsx
+│   │
+│   ├── services/
+│   │   ├── usuarioService.ts
+│   │   ├── libroService.ts
+│   │   ├── ejemplarService.ts
+│   │   └── prestamoService.ts
+│   │
+│   ├── types/
+│   │   ├── Usuario.ts
+│   │   ├── Libro.ts
+│   │   ├── Ejemplar.ts
+│   │   └── Prestamos.ts
+│   │
+│   ├── App.tsx
+│   └── main.tsx
+│
+├── package.json
+├── package-lock.json
+├── tsconfig.json
+├── vite.config.ts
+└── README.md
+```
+
+---
+
+## Integración con el Backend
+
+El frontend forma parte de una arquitectura Full Stack:
+
+```text
+┌──────────────────────┐
+│      React           │
+│    TypeScript        │
+└──────────┬───────────┘
+           │
+           │ Axios / HTTP
+           ▼
+┌──────────────────────┐
+│     Spring Boot      │
+│       REST API       │
+└──────────┬───────────┘
+           │
+           │ JPA / Hibernate
+           ▼
+┌──────────────────────┐
+│     PostgreSQL       │
+└──────────────────────┘
+```
+
+El backend es responsable de:
+
+* Reglas de negocio
+* Validaciones
+* Persistencia
+* Gestión de usuarios
+* Gestión de libros
+* Gestión de ejemplares
+* Gestión de préstamos
+
+El frontend es responsable de:
+
+* Interfaz de usuario
+* Navegación
+* Formularios
+* Visualización de información
+* Consumo de la API
+* Manejo de estados de la interfaz
+
+---
+
+## Diseño
+
+La aplicación utiliza una interfaz de administración con:
+
+* Barra lateral de navegación
+* Dashboard principal
+* Tablas para visualizar información
+* Formularios para crear y modificar registros
+* Modales para operaciones de usuarios y libros
+* Indicadores de estado
+* Mensajes de error
+* Estados de carga
+* Diseño responsive en las diferentes secciones
+
+---
+
+## Autor
+
+Proyecto desarrollado como prueba técnica de desarrollo Full Stack por **Yarod Bonilla**.

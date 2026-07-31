@@ -1,0 +1,331 @@
+
+.libros-page {
+  padding: 24px;
+  background-color: #121212; /* Fondo general oscuro */
+  min-height: 100vh;
+  color: #ffffff;
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+.libros-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.libros-header h1 {
+  margin: 0 0 6px 0;
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+
+.subtext-header {
+  margin: 0;
+  color: #888888;
+  font-size: 0.95rem;
+}
+
+.btn-add-global {
+  background-color: #00ff66; /* Verde neón característico */
+  color: #000000;
+  border: none;
+  border-radius: 6px;
+  padding: 10px 20px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.btn-add-global:hover {
+  background-color: #00cc52;
+  transform: translateY(-1px);
+}
+
+.btn-add-global:active {
+  transform: translateY(0);
+}
+
+.search-bar-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #1a1a1a;
+  border: 1px solid #2d2d2d;
+  border-radius: 8px;
+  padding: 12px 16px;
+  margin-bottom: 20px;
+}
+
+.input-search {
+  background: transparent;
+  border: none;
+  color: #ffffff;
+  font-size: 0.95rem;
+  outline: none;
+  width: 70%;
+}
+
+.input-search::placeholder {
+  color: #555555;
+}
+
+.user-counter {
+  color: #888888;
+  font-size: 0.85rem;
+  background-color: #262626;
+  padding: 4px 10px;
+  border-radius: 20px;
+  border: 1px solid #333333;
+}
+
+.loading-state, .no-data {
+  text-align: center;
+  padding: 40px;
+  color: #666666;
+  font-style: italic;
+}
+
+.error-state {
+  background-color: rgba(255, 51, 51, 0.1);
+  color: #ff3333;
+  border: 1px solid rgba(255, 51, 51, 0.2);
+  padding: 12px 16px;
+  border-radius: 6px;
+  margin-bottom: 20px;
+  font-size: 0.9rem;
+}
+
+
+.tabla-contenedor {
+  background-color: #1a1a1a;
+  border: 1px solid #2d2d2d;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.tabla-libros {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 0.9rem;
+}
+
+.tabla-libros th {
+  background-color: #222222;
+  color: #888888;
+  font-weight: 600;
+  padding: 14px 16px;
+  border-bottom: 1px solid #2d2d2d;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 0.5px;
+}
+
+.tabla-libros td {
+  padding: 14px 16px;
+  border-bottom: 1px solid #262626;
+  color: #cccccc;
+  vertical-align: middle;
+}
+
+.tabla-libros tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.tabla-libros tbody tr:hover td {
+  background-color: #202020;
+  color: #ffffff;
+}
+
+.badge-id {
+  color: #888888;
+  font-family: monospace;
+}
+
+.titulo-libro {
+  color: #ffffff;
+  font-weight: 500;
+}
+
+.isbn-libro {
+  font-family: monospace;
+  color: #aaa;
+}
+
+.badge-ejemplares {
+  background-color: rgba(0, 255, 102, 0.1);
+  color: #00ff66;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-weight: bold;
+  font-size: 0.8rem;
+  border: 1px solid rgba(0, 255, 102, 0.2);
+}
+
+.acciones-celda {
+  display: flex;
+  gap: 8px;
+}
+
+.btn-tabla-edit, .btn-tabla-delete {
+  background: #262626;
+  border: 1px solid #333333;
+  border-radius: 4px;
+  cursor: pointer;
+  padding: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  transition: all 0.2s ease;
+}
+
+.btn-tabla-edit:hover {
+  background-color: #333333;
+  border-color: #00ff66;
+}
+
+.btn-tabla-delete:hover {
+  background-color: rgba(255, 51, 51, 0.1);
+  border-color: #ff3333;
+}
+
+.fondo-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+  backdrop-filter: blur(4px);
+  animation: fadeIn 0.2s ease-out;
+}
+
+.div-card-editar {
+  background-color: #1a1a1a;
+  border: 1px solid #2d2d2d;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 460px;
+  padding: 24px;
+  position: relative;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
+  animation: scaleUp 0.25s ease-out;
+}
+
+.btnEditar-Exit {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: transparent;
+  border: none;
+  color: #666666;
+  font-size: 1.5rem;
+  cursor: pointer;
+  line-height: 1;
+  padding: 4px;
+  transition: color 0.2s ease;
+}
+
+.btnEditar-Exit:hover {
+  color: #ff3333;
+}
+
+.h1-Editar {
+  margin: 0 0 20px 0;
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.div-editar {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+
+.label-editar {
+  color: #888888;
+  font-size: 0.8rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.div-editar input {
+  background-color: #222222;
+  border: 1px solid #333333;
+  border-radius: 6px;
+  padding: 10px 12px;
+  color: #ffffff;
+  font-size: 0.9rem;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.div-editar input:focus {
+  border-color: #00ff66;
+}
+
+.div-editar input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(1); /* Pone el icono de calendario en blanco */
+  cursor: pointer;
+}
+
+.div-actions-save {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 24px;
+}
+
+.btnEditar-Save {
+  background-color: #00ff66;
+  color: #000000;
+  border: none;
+  border-radius: 6px;
+  padding: 10px 24px;
+  font-weight: bold;
+  font-size: 1.1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 80px;
+  transition: background-color 0.2s ease;
+}
+
+.btnEditar-Save:hover {
+  background-color: #00cc52;
+}
+
+.btnEditar-Save:disabled {
+  background-color: #262626;
+  color: #555555;
+  cursor: not-allowed;
+}
+
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes scaleUp {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}

@@ -1,0 +1,387 @@
+.usuarios-page {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 2rem;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    color: #1e293b;
+}
+
+.usuarios-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    border-bottom: 2px solid #f1f5f9;
+    padding-bottom: 1.25rem;
+}
+.div-prestamo{
+    color: #fff;
+}
+
+.usuarios-header h1 {
+    font-size: 2rem;
+    font-weight: 800;
+    color: #0f172a;
+    margin: 0;
+    letter-spacing: -0.025em;
+}
+
+.subtext-header {
+    color: #64748b;
+    margin: 4px 0 0 0;
+    font-size: 0.95rem;
+}
+
+.btn-add-global {
+    background-color: #4f46e5;
+    color: #ffffff;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(79, 70, 229, 0.2);
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn-add-global:hover {
+    background-color: #4338ca;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 14px rgba(79, 70, 229, 0.3);
+}
+
+.search-bar-container {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.input-search {
+    flex: 1;
+    height: 3rem;
+    padding: 0 1.25rem;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    font-size: 1rem;
+    background-color: #ffffff;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
+    outline: none;
+    transition: all 0.2s ease;
+}
+
+.input-search:focus {
+    border-color: #4f46e5;
+    box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1);
+}
+
+.user-counter {
+    background-color: #f1f5f9;
+    color: #475569;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.tabla-contenedor {
+    background-color: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+    border: 1px solid #e2e8f0;
+    overflow: hidden;
+}
+
+.tabla-usuarios {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.tabla-usuarios th, 
+.tabla-usuarios td {
+    padding: 1.1rem 1.5rem;
+    text-align: left;
+    font-size: 0.95rem;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.tabla-usuarios th {
+    background-color: #f8fafc;
+    color: #475569;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 0.06em;
+}
+
+.tabla-usuarios tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.tabla-usuarios tbody tr:hover {
+    background-color: #f8fafc;
+}
+
+.badge-id {
+    background-color: #f1f5f9;
+    color: #64748b;
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-weight: 600;
+    font-family: monospace;
+}
+
+.codigo-destacado {
+    font-weight: 600;
+    color: #707279;
+}
+
+.email-texto {
+    color: #707279;
+}
+
+.acciones-celda {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.btn-tabla-edit {
+    background-color: #f1f5f9;
+    border: none;
+    cursor: pointer;
+    color: #64748b;
+    padding: 0.55rem;
+    display: inline-flex;
+    align-items: center;
+    border-radius: 10px;
+    transition: all 0.2s ease;
+}
+
+.btn-tabla-edit:hover {
+    color: #ffffff;
+    background-color: #4f46e5;
+    transform: translateY(-1px);
+}
+
+.btn-tabla-edit svg,
+.btn-tabla-delete svg {
+    width: 1.15rem;
+    height: 1.15rem;
+}
+
+.btn-tabla-delete {
+    background-color: #fee2e2;
+    border: none;
+    cursor: pointer;
+    color: #ef4444;
+    padding: 0.55rem;
+    display: inline-flex;
+    align-items: center;
+    border-radius: 10px;
+    transition: all 0.2s ease;
+}
+
+.btn-tabla-delete:hover {
+    background-color: #ef4444;
+    color: #ffffff;
+    transform: translateY(-1px);
+}
+
+.fondo-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(15, 23, 42, 0.4);
+    backdrop-filter: blur(8px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    animation: fadeIn 0.2s ease-out;
+}
+
+.div-card-editar {
+    position: relative; 
+    background: linear-gradient(145deg, #1e293b, #0f172a);
+    padding: 3.5rem 2.5rem 2.5rem 2.5rem;
+    border-radius: 20px;
+    width: 90%;
+    max-width: 440px; 
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    animation: scaleUp 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.h1-Editar {
+    color: #ffffff; 
+    font-size: 1.6rem;
+    font-weight: 700;
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 2.25rem;
+    letter-spacing: -0.02em;
+}
+
+.btnEditar-Exit {
+    position: absolute;
+    top: 1.25rem;
+    right: 1.25rem;
+    width: 2.2rem;
+    height: 2.2rem;
+    background-color: rgba(255, 255, 255, 0.06);
+    border: none;
+    color: #94a3b8;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.2s ease;
+}
+
+.btnEditar-Exit:hover {
+    background-color: rgba(255, 255, 255, 0.15);
+    color: #ffffff;
+    transform: rotate(90deg);
+}
+
+.btnEditar-Exit svg {
+    width: 1.25rem;
+    height: 1.25rem;
+}
+
+.div-editar {
+    display: grid;
+    grid-template-columns: 8rem 1fr;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.35rem;
+}
+
+.label-editar {
+    color: #94a3b8;
+    font-weight: 600;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.div-editar input,
+.select-moderno {
+    width: 100%;
+    height: 2.6rem;
+    padding: 0 0.9rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.05);
+    color: #ffffff;
+    font-size: 0.95rem;
+    box-sizing: border-box;
+    font-family: inherit;
+    transition: all 0.2s ease;
+    outline: none;
+}
+
+.select-moderno {
+    cursor: pointer;
+    appearance: none;
+}
+
+.select-moderno option {
+    background-color: #0f172a;
+    color: #ffffff;
+}
+
+.div-editar input:focus,
+.select-moderno:focus {
+    border-color: #6366f1;
+    background-color: rgba(255, 255, 255, 0.09);
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.3);
+}
+
+.div-editar input[type="date"]::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+    cursor: pointer;
+}
+
+.div-actions-save {
+    display: flex;
+    justify-content: center;
+    margin-top: 2.5rem;
+}
+
+.btnEditar-Save {
+    width: 3.8rem;
+    height: 3.8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #ffffff 0%, #e2e8f0 25%, #cbd5e1 50%, #94a3b8 80%, #64748b 100%);
+    border: 1px solid #ffffff;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4), inset 0 2px 3px rgba(255, 255, 255, 0.6);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.btnEditar-Save:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 12px 28px rgba(99, 102, 241, 0.3), 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+.btnEditar-Save:active {
+    transform: translateY(0) scale(0.98);
+}
+
+.btnEditar-Save svg {
+    width: 1.5rem;
+    height: 1.5rem;
+    color: #0f172a;
+}
+
+.badge-status {
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 700;
+}
+
+.badge-status.bueno {
+    background-color: #dcfce7;
+    color: #15803d;
+}
+
+.badge-status.regular {
+    background-color: #fef9c3;
+    color: #a16207;
+}
+
+.badge-status.danado {
+    background-color: #fee2e2;
+    color: #b91c1c;
+}
+
+.loading-state, 
+.error-state, 
+.no-data {
+    text-align: center;
+    padding: 4rem;
+    color: #64748b;
+    font-size: 1.05rem;
+    font-weight: 500;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes scaleUp {
+    from { transform: scale(0.95); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
